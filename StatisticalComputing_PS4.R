@@ -27,17 +27,6 @@ setClass(Class="door",
            switch = c()
          )
 )
-new("door")
-#setValidity("door", function(game){
- # winner = FALSE
- # if(game@chosenDoor == game@carDoor){winner = TRUE}
-#  else{winner = FALSE}
- # return(winner)
- # if(game@chosenDoor == game@carDoor){return("Congrats! You win.")}
- # else{return("Better luck next time!")}
-}
-)
-
 
 setValidity("door", function(object){
   if(object@chosenDoor < 1 | object@chosenDoor > 3){return("invalid chosen door")}
@@ -52,7 +41,36 @@ setMethod("initialize", "door", function(.Object, ...) {
   return(value)
 })
 
-new("door", chosenDoor=as.integer(1), carDoor=as.integer(3), switch=FALSE)
+game1 <- new("door", chosenDoor=as.integer(1), carDoor=as.integer(3), switch=FALSE)
+game2 <- new("door", chosenDoor=as.integer(1), carDoor=as.integer(1), switch=FALSE)
 
 
-new("door", 1, 1, FALSE)
+
+# 2
+
+setGeneric("PlayGame", function(object="door") {
+  standardGeneric("PlayGame")
+})
+setMethod("PlayGame", "door", function(object){
+  firstChosenDoor = sample(1:3, 1)
+  object@carDoor = sample(1:3, 1)
+  if(object@switch == FALSE){
+    object@chosenDoor = firstChosenDoor
+    if(object@chosenDoor == object@carDoor){winner = TRUE}
+    else{winner = FALSE}
+  }
+  else{
+    
+  }
+  if(winner == TRUE){return("Congrats! You win.")}
+  else{return("Better luck next time!")}
+})
+
+
+PlayGame(game2)
+
+#setValidity("door", function(game){
+# winner = FALSE
+# 
+#}
+#)
