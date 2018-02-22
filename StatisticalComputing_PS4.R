@@ -39,7 +39,6 @@ setClass(Class="door",
 setValidity("door", function(object){
   if(object@chosenDoor < 1 | object@chosenDoor > 3){return("invalid chosen door")}
   if(object@carDoor < 1 | object@carDoor > 3){return("invalid car door")}
-  #if(object@switch != TRUE & object@switch != FALSE){return("invalid switch entry")}
 }
 )
 
@@ -109,4 +108,6 @@ SwitchGame = new("door", chosenDoor=as.integer(1), carDoor=as.integer(1), switch
 SwitchResults = replicate(1000, SwitchGame) # replicate scenario setup 1000 times
 Y<-sapply(SwitchResults, PlayGame) # call PlayGame method on each of the 1000 games
 table(Y) # display TRUEs (wins) and FALSEs (losses) in a table
+
+# When errors came up, used traceback & Browser to locate errors
 
